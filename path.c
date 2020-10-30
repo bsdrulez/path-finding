@@ -5,7 +5,7 @@
 #define FREE -1
 #define WALL 2000
 #define START 1000
-#define STEP 0
+#define STEP START
 
 
 #define N 15
@@ -38,7 +38,7 @@ void find_path(int g[N][M],int i,int j, int ie,int je){
         for(b=j-1; b<=j+1; b++){
             if(a==i && b==j)
                 continue;       // skip current cell
-            if(g[a][b]!=STEP && g[a][b]<m){
+            if(g[a][b]<m){
                 m=g[a][b]; 
                 im=a;
                 jm=b;
@@ -46,11 +46,11 @@ void find_path(int g[N][M],int i,int j, int ie,int je){
         }
     }
     printf("min: %d at (%d,%d)\n", m, im, jm);
-    if(g[im][jm]==WALL)
-        g[i][j]=WALL;
-    else
-        g[im][jm]=0;
+    g[im][jm]=STEP;
     
+    if(m==STEP)
+        g[i][j]=WALL;
+
 #ifdef DEBUG
     print(g);
     scanf("%*s");
@@ -114,6 +114,14 @@ int main(int argc, char **argv){
     int js=2; // j_start;
     int ie=9;
     int je=7;
+
+    if(argc == 5){
+        is=atoi(argv[1]);
+        js=atoi(argv[2]);
+        ie=atoi(argv[3]);
+        je=atoi(argv[4]);
+    }
+    printf("%d %d %d %d\n", is, js, ie, je);
     g[is][js]=START;
     
     print(g);
