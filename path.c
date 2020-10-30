@@ -48,6 +48,8 @@ void find_path(int g[N][M],int i,int j, int ie,int je){
     printf("min: %d at (%d,%d)\n", m, im, jm);
     if(g[im][jm]==WALL)
         g[i][j]=WALL;
+        // FIXME: if need to go back, necessary to find last step
+        //        in porder to update im and jm
     else
         g[im][jm]=0;
     
