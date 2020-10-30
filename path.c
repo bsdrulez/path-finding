@@ -11,7 +11,17 @@
 #define N 15
 #define M 20
 
-void print(int g[N][M]);
+void print(int g[N][M]){
+        printf("\n");
+    int i,j;
+    for(i=0; i<N; i++){
+        for(j=0;j<M; j++)
+            printf("%4d ", g[i][j]);
+        printf("\n");
+    }
+        printf("\n");
+}
+
 
 void inizialize(int g[N][M], int ie,int je){
 
@@ -45,12 +55,8 @@ void find_path(int g[N][M],int i,int j, int ie,int je){
            }
         }
     }
-    printf("min: %d at (%d,%d)\n", m, im, jm);
-    if(g[im][jm]==WALL)
-        g[i][j]=WALL;
-    else
-        g[im][jm]=0;
-    
+//    printf("min: %d at (%d,%d)\n", m, im, jm);
+    g[i][j]++;
 #ifdef DEBUG
     print(g);
     scanf("%*s");
@@ -58,16 +64,6 @@ void find_path(int g[N][M],int i,int j, int ie,int je){
     find_path(g,im,jm,ie,je);
 }
 
-void print(int g[N][M]){
-        printf("\n");
-    int i,j;
-    for(i=0; i<N; i++){
-        for(j=0;j<M; j++)
-            printf("%4d ", g[i][j]);
-        printf("\n");
-    }
-        printf("\n");
-}
 
 int main(int argc, char **argv){
     
@@ -121,7 +117,9 @@ int main(int argc, char **argv){
     inizialize(g,ie,je);
     print(g);
     find_path(g,is,js,ie,je);
-
     print(g);
+
+
+
     return 0;
 }
