@@ -36,32 +36,32 @@ void inizialize(int g[N][M], int ie,int je){
     }
 }
 
-void find_path(int g[N][M],int i,int j, int ie,int je){
+void find_path(int g[N][M],int i,int j){
     
-    // se son ad un passo dal traguardo |i-ie|==1 e |j-je|==1 allora ho finito
-    if(abs(i-ie)<=1 && abs(j-je)<=1)
+    if(g[i][j]==0)
         return;
+
 
     int a,b;
     int im=i-1, jm=j-1, m=g[im][jm];
     for(a=i-1; a<=i+1; a++){
         for(b=j-1; b<=j+1; b++){
             if(a==i && b==j)
-                continue;       // skip current cell
-            if(g[a][b]!=STEP && g[a][b]<m){
-                m=g[a][b]; 
-                im=a;
-                jm=b;
+                continue;       // skip current cell     
+            if(g[a][b]<m){
+                m=g[a][b]; im=a; jm=b;
            }
         }
     }
-//    printf("min: %d at (%d,%d)\n", m, im, jm);
-    g[i][j]++;
+    
 #ifdef DEBUG
     print(g);
     scanf("%*s");
 #endif
-    find_path(g,im,jm,ie,je);
+    
+    if(g[im][jm] >= g[i][j])
+        g[i][j]++;
+    find_path(g,im,jm);
 }
 
 
@@ -108,15 +108,15 @@ int main(int argc, char **argv){
 
     int is=9; // i_start
     int js=2; // j_start;
-    int ie=9;
+    int ie=8;
     int je=7;
-    g[is][js]=START;
+    //g[is][js]=START;
     
     print(g);
 
     inizialize(g,ie,je);
     print(g);
-    find_path(g,is,js,ie,je);
+    find_path(g,is,js);
     print(g);
 
 
